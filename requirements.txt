@@ -3,5 +3,5 @@ python-dotenv==0.20.0
 pandas==1.4.2
 transformers==4.18.0
 datasets==2.1.0
-flask==2.1.2
+flask==2.2.5
 instaloader==4.9
