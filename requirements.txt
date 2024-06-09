@@ -1,7 +1,7 @@
 tweepy==4.6.0
 python-dotenv==0.20.0
 pandas==1.4.2
-transformers==4.18.0
+transformers==4.38.0
 datasets==2.1.0
 flask==2.1.2
 instaloader==4.9
