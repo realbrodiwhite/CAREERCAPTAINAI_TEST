@@ -2,31 +2,31 @@
 
 import requests
 import os
+from requests_oauthlib import OAuth1Session
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
-bearer_token = os.getenv('BEARER_TOKEN')
+consumer_key = os.getenv('CONSUMER_KEY')
+consumer_secret = os.getenv('CONSUMER_SECRET')
+access_token = os.getenv('ACCESS_TOKEN')
+access_token_secret = os.getenv('ACCESS_TOKEN_SECRET')
 
 # Verify that environment variables are loaded correctly
-if not bearer_token:
-    raise ValueError("BEARER_TOKEN environment variable is missing. Please check your .env file.")
+if not all([consumer_key, consumer_secret, access_token, access_token_secret]):
+    raise ValueError("One or more environment variables are missing. Please check your .env file.")
 
-def create_headers(bearer_token):
-    headers = {"Authorization": f"Bearer {bearer_token}"}
-    return headers
-
-def get_user_info(headers):
+def get_user_info():
     url = "https://api.twitter.com/2/users/me"
-    response = requests.get(url, headers=headers)
+    oauth = OAuth1Session(consumer_key, client_secret=consumer_secret, resource_owner_key=access_token, resource_owner_secret=access_token_secret)
+    response = oauth.get(url)
     if response.status_code != 200:
         raise Exception(f"Request returned an error: {response.status_code} {response.text}")
     return response.json()
 
 if __name__ == "__main__":
-    headers = create_headers(bearer_token)
-    user_info = get_user_info(headers)
+    user_info = get_user_info()
     print(user_info)
     with open('user_info.json', 'w') as f:
         f.write(str(user_info))
