@@ -1,5 +1,5 @@
 tweepy==4.6.0
-python-dotenv==0.20.0
+python-dotenv==0.21.1
 pandas==1.4.2
 transformers==4.18.0
 datasets==2.1.0
